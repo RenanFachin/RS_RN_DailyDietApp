@@ -1,11 +1,13 @@
-import { Container, Title } from "./styles"
+import { Header } from "@components/Header"
+import { Container, Content } from "./styles"
 
 export function Summary() {
   return (
     <Container>
-      <Title>
-        Summary Screen
-      </Title>
+      <Header />
+
+      <Content>
+      </Content>
     </Container>
   )
 }
