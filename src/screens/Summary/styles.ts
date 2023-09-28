@@ -9,5 +9,6 @@ export const Container = styled(SafeAreaView)`
 
 export const Content = styled.View`
   flex: 1;
-  justify-content: center;
+  justify-content: start;
+  margin-top: 32px;
 `
