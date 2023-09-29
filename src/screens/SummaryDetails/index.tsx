@@ -1,5 +1,7 @@
-import { Container, Header, HeaderTitle, HeadeSubTitle, BackButton, BackIcon, Main, MainTitle, MainCard, MainCardTitle, MainCardSubTitle, MainCardSummary, MainCardSummarySuccess, MainCardSummaryError, MainCardSummaryTitle, MainCardSummarySubTitle } from "./styles";
-import { useNavigation,useRoute  } from '@react-navigation/native'
+import { Container,   } from "./styles";
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Header } from './components/Header'
+import { Main } from "./components/Main";
 
 type RouteParams = {
   percentage: number
@@ -19,60 +21,15 @@ export function SummaryDetails() {
 
   return (
     <Container>
-      <Header>
-        <BackButton onPress={handleGoBack}>
-          <BackIcon />
-        </BackButton>
 
+      <Header
+        percentage={percentage}
+        handleGoBack={handleGoBack}
+      />
 
-        <HeaderTitle>
-          {percentage}%
-        </HeaderTitle>
-
-        <HeadeSubTitle>
-          das refeições dentro da dieta
-        </HeadeSubTitle>
-      </Header>
-
-      <Main>
-        <MainTitle>
-          Estatísticas gerais
-        </MainTitle>
-
-        <MainCard>
-          <MainCardTitle>
-            22
-          </MainCardTitle>
-
-          <MainCardSubTitle>
-            melhor sequência de pratos dentro da dieta
-          </MainCardSubTitle>
-        </MainCard>
-
-        <MainCard>
-          <MainCardTitle>
-            109
-          </MainCardTitle>
-
-          <MainCardSubTitle>
-            refeições registradas
-          </MainCardSubTitle>
-        </MainCard>
-
-        <MainCardSummary>
-          <MainCardSummarySuccess>
-            <MainCardSummaryTitle>99</MainCardSummaryTitle>
-
-            <MainCardSummarySubTitle>refeições dentro da dieta</MainCardSummarySubTitle>
-          </MainCardSummarySuccess>
-
-          <MainCardSummaryError>
-            <MainCardSummaryTitle>10</MainCardSummaryTitle>
-
-            <MainCardSummarySubTitle>refeições fora da dieta</MainCardSummarySubTitle>
-          </MainCardSummaryError>
-        </MainCardSummary>
-      </Main>
+      
+      <Main />
+       
     </Container>
   )
 }
