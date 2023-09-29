@@ -4,7 +4,7 @@ import { Container, HourText, Divider, StatusInDiet, Title, CardTypeStyleProps} 
 interface CardProps extends TouchableProps {
   hour: string;
   title: string;
-  cardType: CardTypeStyleProps
+  cardType: string
 }
 
 export function Card({ hour, title, cardType = 'WITHIN_DIET', ...props }: CardProps) {
