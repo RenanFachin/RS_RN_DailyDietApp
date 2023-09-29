@@ -3,9 +3,11 @@ import { Container, Title, SubTitle, ExpandButton, ExpandIcon, ProgressTypeStyle
 type ProgressProps = {
   percentage: number
   progressType?: ProgressTypeStyleProps
+  handleShowDetails: () => void;
 }
 
-export function Progress({ percentage, progressType }: ProgressProps) {
+export function Progress({ percentage, progressType, handleShowDetails }: ProgressProps) {
+
   return (
     <Container progressType={progressType}>
       <Title>
@@ -17,8 +19,8 @@ export function Progress({ percentage, progressType }: ProgressProps) {
       </SubTitle>
 
 
-      <ExpandButton>
-        <ExpandIcon progressType={progressType}/>
+      <ExpandButton onPress={handleShowDetails}>
+        <ExpandIcon progressType={progressType} />
       </ExpandButton>
     </Container>
   )

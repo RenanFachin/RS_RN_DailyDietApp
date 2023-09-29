@@ -9,9 +9,18 @@ import { Progress } from "@components/Progress"
 import { ProgressTypeStyleProps } from '@components/Progress/styles'
 import { ListEmpty } from "@components/ListEmpty"
 
+import { useNavigation } from '@react-navigation/native'
+
+
 export function Summary() {
-  const [percentage, setPercentage] = useState<number>(74.52)
+  const [percentage, setPercentage] = useState(74.52)
   const [progressType, setProgressType] = useState<ProgressTypeStyleProps>('BAD')
+
+  const navigation = useNavigation()
+
+  function handleShowDetails() {
+    navigation.navigate('summaryDetails', { percentage })
+  }
 
   useEffect(() => {
     if (percentage > 50) {
@@ -63,6 +72,7 @@ export function Summary() {
         <Progress
           percentage={percentage}
           progressType={progressType}
+          handleShowDetails={handleShowDetails}
         />
 
 
