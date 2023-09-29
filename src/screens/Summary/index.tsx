@@ -10,7 +10,7 @@ import { ProgressTypeStyleProps } from '@components/Progress/styles'
 import { ListEmpty } from "@components/ListEmpty"
 
 export function Summary() {
-  const [percentage, setPercentage] = useState<number>(52)
+  const [percentage, setPercentage] = useState<number>(74.52)
   const [progressType, setProgressType] = useState<ProgressTypeStyleProps>('BAD')
 
   useEffect(() => {
