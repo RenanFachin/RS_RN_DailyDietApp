@@ -1,3 +1,4 @@
+import { Input } from "@components/Input";
 import { Container, Content, Title, BackButton, BackIcon, CreateMain } from "./styles";
 import { useNavigation } from '@react-navigation/native'
 
@@ -21,7 +22,7 @@ export function Create() {
       </Content>
 
       <CreateMain>
-
+        <Input inputLabel="Nome"/>
       </CreateMain>
 
     </Container>

@@ -22,7 +22,7 @@ export const BackIcon = styled(ArrowLeft).attrs(({ theme }) => ({
 }))``
 
 export const Title = styled.Text`
-  width: 100%;
+  flex: 1;
   text-align: center;
   
   color: ${({ theme }) => theme.COLORS.GRAY[800]};
@@ -37,4 +37,6 @@ export const CreateMain = styled.View`
 
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+
+  padding: 38px 24px;
 `
