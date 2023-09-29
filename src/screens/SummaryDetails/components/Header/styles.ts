@@ -1,9 +1,8 @@
 import styled from "styled-components/native";
-import {ArrowLeft} from 'phosphor-react-native'
+import { ArrowLeft } from 'phosphor-react-native'
 
 export const HeaderSummaryDetails = styled.View`
   margin-top: 50px;
-  height: 200px;
   width: 100%;
   padding: 24px;
 `

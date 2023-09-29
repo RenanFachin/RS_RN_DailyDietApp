@@ -13,13 +13,17 @@ import { useNavigation } from '@react-navigation/native'
 
 
 export function Summary() {
-  const [percentage, setPercentage] = useState(74.52)
+  const [percentage, setPercentage] = useState(64.52)
   const [progressType, setProgressType] = useState<ProgressTypeStyleProps>('BAD')
 
   const navigation = useNavigation()
 
   function handleShowDetails() {
     navigation.navigate('summaryDetails', { percentage })
+  }
+
+  function handleCreateMeal() {
+    navigation.navigate('create')
   }
 
   useEffect(() => {
@@ -80,7 +84,11 @@ export function Summary() {
           Refeições
         </MealText>
 
-        <Button title="Nova refeição" hasIcon={true} />
+        <Button
+          title="Nova refeição"
+          hasIcon={true}
+          onPress={handleCreateMeal}
+        />
 
 
         <SectionList

@@ -5,6 +5,7 @@ export declare global {
       summaryDetails: {
         percentage: number
       };
+      create: undefined
     }
   }
 }
