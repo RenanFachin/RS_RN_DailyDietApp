@@ -12,3 +12,11 @@ export const Content = styled.View`
   justify-content: start;
   margin-top: 32px;
 `
+
+export const MealText = styled.Text`
+  margin-top: 38px;
+  margin-bottom: 8px;
+  color: ${({theme}) => theme.COLORS.GRAY[800]};
+  font-family: ${({theme}) => theme.FONT_FAMILY.REGULAR};
+  font-size: ${({theme}) => theme.FONT_SIZE.MD}px;
+`
