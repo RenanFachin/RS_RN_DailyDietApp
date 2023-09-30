@@ -2,7 +2,8 @@ import styled from "styled-components/native";
 import { TextInput } from 'react-native'
 
 export const Container = styled(TextInput)`
-  flex: 1;
+  /* flex: 1; */
+  width: 100%;
 
   min-height: 48px;
   max-height: 48px;
@@ -18,6 +19,6 @@ export const Container = styled(TextInput)`
 
 export const Label = styled.Text`
   color: ${({theme}) => theme.COLORS.GRAY[700]};
-  font-size: ${({theme}) => theme.FONT_SIZE.SM};
+  font-size: ${({theme}) => theme.FONT_SIZE.SM}px;
   font-family: ${({theme}) => theme.FONT_FAMILY.BOLD};
 `

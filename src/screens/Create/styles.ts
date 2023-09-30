@@ -39,4 +39,6 @@ export const CreateMain = styled.View`
   border-top-right-radius: 20px;
 
   padding: 38px 24px;
+
+  gap: 24px;
 `

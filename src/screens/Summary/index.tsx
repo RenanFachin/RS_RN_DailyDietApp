@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native'
 
 
 export function Summary() {
-  const [percentage, setPercentage] = useState(64.52)
+  const [percentage, setPercentage] = useState(34.52)
   const [progressType, setProgressType] = useState<ProgressTypeStyleProps>('BAD')
 
   const navigation = useNavigation()
