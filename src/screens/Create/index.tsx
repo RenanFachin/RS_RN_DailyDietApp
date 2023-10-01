@@ -12,7 +12,6 @@ export function Create() {
   const [yesButtonChecked, setYesButtonChecked] = useState(false);
   const [noButtonChecked, setNoButtonChecked] = useState(false);
 
-
   const navigation = useNavigation()
 
   const [mealTitle, setMealTitle] = useState('')
@@ -59,7 +58,6 @@ export function Create() {
 
 
   async function handleAddNewMeal() {
-
     try {
       const validationMessage = verifyInput(mealTitle, mealDescription, date, hour)
 

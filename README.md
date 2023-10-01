@@ -19,9 +19,12 @@ Aplicação desenvolvida durante o bootcamp de especialização em ReactNative. 
 ## Requisitos funcionais
 O que é possível que o usuário faça na aplicação.
 
-- [ ] Deve ser possível Adicionar uma nova refeição
+- [x] Deve ser possível Adicionar uma nova refeição
 - [ ] Deve ser possível Editar uma refeição
-- [ ] Deve ser possível Remover uma refeição da listagem
-- [ ] Deve ser possível Mostrar as estatísticas do progresso da dieta 
-- [ ] Deve ser possível Navegação entre telas em pilha
-- [ ] Deve ser possível Armazenamento local das refeições
+- [x] Deve ser possível Remover uma refeição da listagem
+- [x] Deve ser possível Mostrar as estatísticas do progresso da dieta 
+- [x] Deve ser possível Navegação entre telas em pilha
+- [x] Deve ser possível Armazenamento local das refeições
+
+## 🎯 Layout do projeto
+- [Figma](https://www.figma.com/community/file/1218573349379609244)
