@@ -1,7 +1,7 @@
 import { MealDTO, MealInfoTypes } from '@storage/meal/mealStorageDTO';
 import { BackButton, BackIcon, Container, Content, Title, DetailsMain, MealTitle, MealDescription, DateAndHourTitle, DateAndHourContent, IsOnDietContainer, IsOnDietIcon, IsOnDietText } from './styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { Button } from '@components/Button';
 import { deleteMeal } from '@storage/meal/deleteMeal';
@@ -29,10 +29,25 @@ export function Details() {
     navigation.goBack()
   }
 
-  async function handleDeleteMeal(){
-    await deleteMeal(meal)
+  async function handleDeleteMeal() {
+    try {
+      await deleteMeal(meal)
+      navigation.navigate('home')
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Remover refeição", "Não foi possível deleter a refeição.")
+    }
+  }
 
-    navigation.navigate('home')
+  async function handleRemoveMeal(){
+    Alert.alert(
+      'Remover',
+      'Deseja deletar a refeição?',
+      [
+        {text: 'Não', style: 'cancel'},
+        {text: 'Sim', onPress: () => handleDeleteMeal}
+      ]
+    )
   }
 
 
@@ -77,12 +92,10 @@ export function Details() {
 
         <View style={{ flex: 1, justifyContent: 'flex-end', gap: 24 }}>
           <Button title='Editar refeição' />
-          <Button title='Excluir refeição' buttonType='SECONDARY' onPress={handleDeleteMeal}/>
+          <Button title='Excluir refeição' buttonType='SECONDARY' onPress={handleRemoveMeal} />
         </View>
 
       </DetailsMain>
-
-
     </Container>
   )
 }
