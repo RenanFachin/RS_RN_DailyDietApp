@@ -1,5 +1,5 @@
 import { Container, Content, MealText, HeaderSectionList } from "./styles"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { SectionList, View } from 'react-native'
 
 import { Card } from "@components/Card"
@@ -9,12 +9,16 @@ import { Progress } from "@components/Progress"
 import { ProgressTypeStyleProps } from '@components/Progress/styles'
 import { ListEmpty } from "@components/ListEmpty"
 
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
+import { getAllMeal } from "@storage/meal/getAllMeal"
+import { MealDTO } from "@storage/meal/mealStorageDTO"
 
 
 export function Summary() {
-  const [percentage, setPercentage] = useState(34.52)
+  const [mealsData, setMealsData] = useState<MealDTO[]>([])
+  const [percentage, setPercentage] = useState(64.52)
   const [progressType, setProgressType] = useState<ProgressTypeStyleProps>('BAD')
+
 
   const navigation = useNavigation()
 
@@ -26,46 +30,43 @@ export function Summary() {
     navigation.navigate('create')
   }
 
+  async function fetchMeal() {
+    try {
+      const data = await getAllMeal()
+
+      const dataSortered = data.sort((a, b) => {
+        // update string date in new Date to sort
+        const datePartsA = a.date.split("/");
+        const dateA = new Date(
+          `${datePartsA[2]}-${datePartsA[1]}-${datePartsA[0]}`
+        );
+
+        const datePartsB = b.date.split("/");
+        const dateB = new Date(
+          `${datePartsB[2]}-${datePartsB[1]}-${datePartsB[0]}`
+        );
+
+        return dateB.getTime() - dateA.getTime();
+      });
+
+      setMealsData(dataSortered)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   useEffect(() => {
     if (percentage > 50) {
       setProgressType('GOOD')
     }
   }, [percentage])
 
-  const DATA = [
-    {
-      headerSectionList: '12.08.23',
-      data: [{
-        hour: "16:00",
-        title: "Whey protein com leite",
-        cardType: "WITHIN_DIET"
-      }, {
-        hour: "12:30",
-        title: "Chocolate",
-        cardType: "OFF_DIET"
-      }, {
-        hour: "09:30",
-        title: "Vitamina de banana com abacate",
-        cardType: "WITHIN_DIET"
-      }],
-    },
-    {
-      headerSectionList: '11.08.23',
-      data: [{
-        hour: "16:00",
-        title: "Whey protein com leite",
-        cardType: "WITHIN_DIET"
-      }, {
-        hour: "12:30",
-        title: "Chocolate",
-        cardType: "OFF_DIET"
-      }, {
-        hour: "09:30",
-        title: "Vitamina de banana com abacate",
-        cardType: "WITHIN_DIET"
-      }],
-    }
-  ];
+  useFocusEffect(
+    useCallback(() => {
+      // console.log("use Focus Effect executou")
+      fetchMeal()
+    }, []))
 
 
   return (
@@ -94,23 +95,24 @@ export function Summary() {
         <SectionList
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={() => <ListEmpty message='Que tal Adicionar suas refeições?' />}
-          sections={DATA}
+          sections={mealsData}
           keyExtractor={(item) => item.title}
-          renderItem={({ item }) => (
+          renderItem={({ item, section }) => (
             <Card
               hour={item.hour}
               title={item.title}
-              cardType={item.cardType}
+              isInDiet={item.isInDiet}
             />
           )}
-          renderSectionHeader={({ section: { headerSectionList } }) => (
+          renderSectionHeader={({ section }) => (
             <View style={{ marginTop: 32, marginBottom: 8 }}>
-              <HeaderSectionList >{headerSectionList}</HeaderSectionList>
+              <HeaderSectionList >{section.date}</HeaderSectionList>
             </View>
           )}
           contentContainerStyle={
             [
-              { paddingBottom: 60 }, DATA.length === 0 && { flex: 1 }
+              { paddingBottom: 60 },
+              // DATA.length === 0 && { flex: 1 }
             ]
           }
         />

@@ -1,10 +1,9 @@
 import styled from "styled-components/native";
+import { View } from "react-native";
 
-export type CardTypeStyleProps = 'WITHIN_DIET' | 'OFF_DIET'
-
-type Props = {
-  cardType: CardTypeStyleProps
-}
+export type CardStatusTypeProps = {
+  isInDiet: boolean;
+};
 
 export const Container = styled.TouchableOpacity`
   width: 100%;
@@ -40,10 +39,10 @@ export const Title = styled.Text`
   
 `
 
-export const StatusInDiet = styled.View<Props>`
+export const StatusInDiet = styled(View)<CardStatusTypeProps>`
   width: 14px;
   height: 14px;
   border-radius: 14px;
 
-  background-color: ${({theme, cardType}) => cardType === 'WITHIN_DIET' ? theme.COLORS.GREEN[500] : theme.COLORS.RED[500]};
+  background-color: ${({theme, isInDiet}) => isInDiet ? theme.COLORS.GREEN[500] : theme.COLORS.RED[500]};
 `

@@ -11,7 +11,7 @@ export default {
       800: '#639339'
     },
     GRAY: {
-      100: '#FAFAFA',
+    100: '#FAFAFA',
       200: '#EFF0F0',
       300: '#DDDEDF',
       500: '#B9BBBC',

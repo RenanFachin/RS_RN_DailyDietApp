@@ -1,38 +1,66 @@
 import { Input } from "@components/Input";
-import { Container, Content, Title, BackButton, BackIcon, CreateMain } from "./styles";
+import { Container, Content, Title, BackButton, BackIcon, CreateMain, RowContainer } from "./styles";
 import { useNavigation } from '@react-navigation/native'
 import { TextArea } from "@components/TextArea";
-import { View, Text, FlatList } from "react-native";
+import { Keyboard, View, Text, FlatList } from "react-native";
 import { Filter } from "@components/Filter";
 import { useState } from "react";
 import { Button } from "@components/Button";
+import { addMeal } from "@storage/meal/addMeal";
 
 export function Create() {
+  const [yesButtonChecked, setYesButtonChecked] = useState(false);
+  const [noButtonChecked, setNoButtonChecked] = useState(false);
+
+
   const navigation = useNavigation()
 
   const [mealTitle, setMealTitle] = useState('')
   const [mealDescription, setMealDescriptio] = useState('')
   const [date, setDate] = useState('')
   const [hour, setHour] = useState('')
-  const [isInDiet, setIsInDiet] = useState('')
+  const [isInDiet, setIsInDiet] = useState<boolean | null>(null)
 
   function handleGoBack() {
     navigation.goBack()
   }
 
-  function handleAddNewMeal() {
+  function handlePressYes() {
+    setYesButtonChecked(yesButtonChecked ? false : true);
+    setNoButtonChecked(false);
+
+    setIsInDiet((prevState) => (!prevState ? true : null));
+    Keyboard.dismiss();
+  };
+
+  function handlePressNo() {
+    setNoButtonChecked(noButtonChecked ? false : true);
+    setYesButtonChecked(false);
+
+    setIsInDiet((prevState) => (prevState === false ? null : false));
+    Keyboard.dismiss();
+  };
+
+
+  async function handleAddNewMeal() {
     // Criando um objeto contendo todos os dados preenchidos pelo usuário
     const newMealData = {
-      title: mealTitle,
-      description: mealDescription,
-      date: date,
-      hour: hour,
-      isInDiet: isInDiet
+      date,
+      data: [{
+        title: mealTitle,
+        description: mealDescription,
+        date: date,
+        hour: hour,
+        isInDiet: isInDiet
+      }
+      ]
     }
 
     console.log(isInDiet)
 
-    if (newMealData.isInDiet === 'Sim') {
+    await addMeal(newMealData)
+
+    if (isInDiet) {
       navigation.navigate('success')
     } else {
       navigation.navigate('failed')
@@ -83,21 +111,19 @@ export function Create() {
         </View>
 
         <Text>  Está dentro da dieta?</Text>
-        <View style={{ flexDirection: 'row', width: '100%'}}>
-          <FlatList
-            data={['Sim', 'Não']}
-            keyExtractor={item => item}
-            renderItem={({ item }) => ( 
-              <Filter
-                title={item}
-                isSelected={item === isInDiet}
-                onPress={() => setIsInDiet(item)}
-              />
-            )}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true} // Alterando a direção da flatList
+
+        <RowContainer>
+          <Filter
+            textButton="Sim"
+            isChecked={yesButtonChecked}
+            onPress={handlePressYes}
           />
-        </View>
+          <Filter
+            textButton="Não"
+            isChecked={noButtonChecked}
+            onPress={handlePressNo}
+          />
+        </RowContainer>
 
 
         <Button

@@ -1,35 +1,41 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableHighlight } from "react-native";
 import styled, { css } from "styled-components/native";
 
-export type FilterStyleProps = {
-  isSelected?: boolean
-}
-
-
-export const Container = styled(TouchableOpacity) <FilterStyleProps>`
-  flex-direction: row;
-  gap: 8px;
-
+export const Container = styled(TouchableHighlight)`
+  width: 48%;
   height: 50px;
+  background-color: ${({ theme }) => theme.COLORS.GRAY[200]};
 
-  min-width: 161.5px;
-  max-width: 161.5px;
-  border-radius: 6px;
-
+  border-radius: 5px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.COLORS.GRAY[300]};
 
-  ${({ theme, isSelected }) => isSelected && css`
-    border: 1px solid ${theme.COLORS.GRAY[800]};
-  `};
+`;
 
-  
-  margin-right: 20px;
-`
+export const Content = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 
-export const CircleStatus = styled.View`
+type ButtonIconStyled = {
+  textButton: "Sim" | "Não";
+};
+
+export const ButtonIcon = styled.View<ButtonIconStyled>`
   width: 8px;
   height: 8px;
-  border-radius: 8px;
-`
+  border-radius: 4px;
+  margin-right: 8px;
+
+  background-color: ${({ theme, textButton }) =>
+    textButton === "Sim" ? theme.COLORS.GREEN[800] : theme.COLORS.RED[800]};
+`;
+
+export const ButtonText = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.FONT_SIZE.SM}px;
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    color: ${theme.COLORS.GRAY[800]};
+  `}
+`;

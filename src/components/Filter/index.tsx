@@ -1,19 +1,32 @@
-import { Text, TouchableOpacityProps } from "react-native";
-import { Container, FilterStyleProps, CircleStatus } from "./styles";
+import { useTheme } from "styled-components/native";
+import { ButtonIcon, ButtonText, Container, Content } from "./styles";
 
-type FilterProps = TouchableOpacityProps & FilterStyleProps & {
-  title: string
-}
+type Props = {
+  textButton: "Sim" | "Não";
+  isChecked?: boolean;
+  onPress: () => void;
+};
 
-export function Filter({ title, isSelected , ...props }: FilterProps) {
+export function Filter({ textButton, isChecked, onPress }: Props) {
+  const { COLORS } = useTheme();
+
   return (
-    <Container isSelected={isSelected} {...props}>
-      {title === 'Sim' && <CircleStatus style={{backgroundColor: '#639339'}}/>}
-      {title === 'Não' && <CircleStatus style={{backgroundColor: '#BF3B44'}}/>}
+    <Container
+      activeOpacity={0.6}
+      underlayColor={textButton === "Sim" ? COLORS.GREEN[500] : COLORS.RED[500]}
+      style={[
+        isChecked && {
+          backgroundColor:
+            textButton === "Sim" ? COLORS.GREEN[500] : COLORS.RED[500],
+        },
+      ]}
+      onPress={onPress}
+    >
+      <Content>
+        <ButtonIcon textButton={textButton} />
 
-      <Text>
-        {title}
-      </Text>
+        <ButtonText>{textButton}</ButtonText>
+      </Content>
     </Container>
-  )
+  );
 }

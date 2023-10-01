@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled, {css} from "styled-components/native";
 import { ArrowLeft } from 'phosphor-react-native'
 
 export const Container = styled.View`
@@ -42,3 +42,18 @@ export const CreateMain = styled.View`
 
   gap: 24px;
 `
+
+export const RowContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const QuestionText = styled.Text`
+  ${({ theme }) => css`
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    font-size: ${theme.FONT_SIZE.SM}px;
+    color: ${theme.COLORS.GRAY[200]};
+  `}
+  margin-bottom: 8px;
+`;
