@@ -6,6 +6,7 @@ import { SummaryDetails } from '@screens/SummaryDetails'
 import { Create } from '@screens/Create'
 import { Success } from '@screens/Success'
 import { Failed } from '@screens/Failed'
+import { Details } from '@screens/Details'
 
 export function AppRoutes() {
   return (
@@ -33,6 +34,11 @@ export function AppRoutes() {
       <NativeStack.Screen
         name='failed'
         component={Failed}
+      />
+
+      <NativeStack.Screen
+        name='details'
+        component={Details}
       />
 
     </NativeStack.Navigator>

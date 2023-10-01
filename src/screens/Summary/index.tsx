@@ -102,6 +102,17 @@ export function Summary() {
               hour={item.hour}
               title={item.title}
               isInDiet={item.isInDiet}
+              onPress={() =>
+                navigation.navigate('details', {
+                  meal: item,
+                  date: item.date,
+                  title: item.title,
+                  description: item.description,
+                  hour: item.hour,
+                  date: section.date,
+                  isInDiet: !!item.isInDiet
+                })
+              }
             />
           )}
           renderSectionHeader={({ section }) => (

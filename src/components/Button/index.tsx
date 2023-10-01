@@ -1,14 +1,15 @@
 import { TouchableOpacityProps } from "react-native";
-import { Container, Title, Icon } from "./styles";
+import { Container, Title, Icon, ButtonTypeStyleProps } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string
   hasIcon?: boolean
+  buttonType?: ButtonTypeStyleProps
 }
 
-export function Button({ title, hasIcon = false, ...props }: ButtonProps) {
+export function Button({ title, hasIcon = false, buttonType = 'PRIMARY', ...props }: ButtonProps) {
   return (
-    <Container {...props} activeOpacity={0.7}>
+    <Container buttonType={buttonType} activeOpacity={0.7} {...props}>
 
       {
         hasIcon &&
@@ -17,7 +18,7 @@ export function Button({ title, hasIcon = false, ...props }: ButtonProps) {
         )
       }
 
-      <Title>
+      <Title buttonType={buttonType}>
         {title}
       </Title>
     </Container>
