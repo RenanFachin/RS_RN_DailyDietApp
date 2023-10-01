@@ -1,4 +1,4 @@
-const MEALS_COLLECTION = '@daily-diet2:meals'
+const MEALS_COLLECTION = '@daily-diet3:meals'
 
 
 export {

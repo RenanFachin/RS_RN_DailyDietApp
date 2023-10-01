@@ -11,7 +11,7 @@ export declare global {
       success: undefined;
       failed: undefined;
       details: {
-        meal: MealDTO;
+        meal: any;
         title: string;
         description: string;
         date: string;

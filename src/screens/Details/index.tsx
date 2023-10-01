@@ -1,12 +1,13 @@
-import { MealDTO } from '@storage/meal/mealStorageDTO';
+import { MealDTO, MealInfoTypes } from '@storage/meal/mealStorageDTO';
 import { BackButton, BackIcon, Container, Content, Title, DetailsMain, MealTitle, MealDescription, DateAndHourTitle, DateAndHourContent, IsOnDietContainer, IsOnDietIcon, IsOnDietText } from './styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { View } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { Button } from '@components/Button';
+import { deleteMeal } from '@storage/meal/deleteMeal';
 
 type RouteParams = {
-  meal: MealDTO;
+  meal: any;
   title: string;
   description: string;
   date: string;
@@ -20,7 +21,7 @@ export function Details() {
   const { COLORS } = useTheme()
   const { params } = useRoute()
 
-  const { title, description, date, hour, isInDiet } = params as RouteParams
+  const { meal, title, description, date, hour, isInDiet } = params as RouteParams
 
   const navigation = useNavigation()
 
@@ -28,6 +29,11 @@ export function Details() {
     navigation.goBack()
   }
 
+  async function handleDeleteMeal(){
+    await deleteMeal(meal)
+
+    navigation.navigate('home')
+  }
 
 
   return (
@@ -71,7 +77,7 @@ export function Details() {
 
         <View style={{ flex: 1, justifyContent: 'flex-end', gap: 24 }}>
           <Button title='Editar refeição' />
-          <Button title='Excluir refeição' buttonType='SECONDARY' />
+          <Button title='Excluir refeição' buttonType='SECONDARY' onPress={handleDeleteMeal}/>
         </View>
 
       </DetailsMain>
