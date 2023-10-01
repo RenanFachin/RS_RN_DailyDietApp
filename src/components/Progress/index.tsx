@@ -1,7 +1,7 @@
 import { Container, Title, SubTitle, ExpandButton, ExpandIcon, ProgressTypeStyleProps } from './styles'
 
 type ProgressProps = {
-  percentage: number
+  percentage: string
   progressType?: ProgressTypeStyleProps
   handleShowDetails: () => void;
 }

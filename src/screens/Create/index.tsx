@@ -2,7 +2,7 @@ import { Input } from "@components/Input";
 import { Container, Content, Title, BackButton, BackIcon, CreateMain, RowContainer } from "./styles";
 import { useNavigation } from '@react-navigation/native'
 import { TextArea } from "@components/TextArea";
-import { Keyboard, View, Text, FlatList } from "react-native";
+import { Keyboard, View, Text, Alert } from "react-native";
 import { Filter } from "@components/Filter";
 import { useState } from "react";
 import { Button } from "@components/Button";
@@ -41,34 +41,73 @@ export function Create() {
     Keyboard.dismiss();
   };
 
+  function verifyInput(mealTitle: string, mealDescription: string, date: string, hour: string) {
+    if (mealTitle.trim().length === 0) {
+      return 'Você deve adicionar algo ao nome da refeição.';
+    }
+
+    if (mealDescription.trim().length === 0) {
+      return 'Você deve adicionar uma descrição.';
+    }
+
+    if (date.trim().length === 0 || hour.trim().length === 0) {
+      return 'Você deve adicionar uma data e hora.';
+    }
+
+    return null;
+  }
+
 
   async function handleAddNewMeal() {
-    // Criando um objeto contendo todos os dados preenchidos pelo usuário
-    const newMealData = {
-      date,
-      data: [{
-        title: mealTitle,
-        description: mealDescription,
-        date: date,
-        hour: hour,
-        isInDiet: isInDiet
+
+    try {
+      const validationMessage = verifyInput(mealTitle, mealDescription, date, hour)
+
+      if (validationMessage) {
+        return Alert.alert('Nova refeição', validationMessage);
       }
-      ]
+
+      if (mealTitle.trim().length === 0) {
+        return Alert.alert('Nova refeição', 'Você deve adicionar algo ao nome da refeição.')
+      }
+
+      if (mealDescription.trim().length === 0) {
+        return Alert.alert('Nova refeição', 'Você deve adicionar uma descrição')
+      }
+
+      if (date.trim().length === 0 || hour.trim().length === 0) {
+        return Alert.alert('Nova refeição', 'Você deve adicionar uma data e hora')
+      }
+
+      // Criando um objeto contendo todos os dados preenchidos pelo usuário
+      const newMealData = {
+        date,
+        data: [{
+          title: mealTitle,
+          description: mealDescription,
+          date: date,
+          hour: hour,
+          isInDiet: isInDiet
+        }
+        ]
+      }
+
+      console.log(isInDiet)
+
+      await addMeal(newMealData)
+
+      if (isInDiet) {
+        navigation.navigate('success')
+      } else {
+        navigation.navigate('failed')
+      }
+    } catch (error) {
+      Alert.alert('Nova refeição', 'Não foi possível adicionar uma nova refeição.')
+      console.log(error)
     }
 
-    console.log(isInDiet)
-
-    await addMeal(newMealData)
-
-    if (isInDiet) {
-      navigation.navigate('success')
-    } else {
-      navigation.navigate('failed')
-    }
 
 
-
-    console.log(newMealData)
   }
 
 

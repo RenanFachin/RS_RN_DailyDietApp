@@ -1,5 +1,5 @@
 import { Container, Content, MealText, HeaderSectionList } from "./styles"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { SectionList, View } from 'react-native'
 
 import { Card } from "@components/Card"
@@ -16,7 +16,7 @@ import { MealDTO } from "@storage/meal/mealStorageDTO"
 
 export function Summary() {
   const [mealsData, setMealsData] = useState<MealDTO[]>([])
-  const [percentage, setPercentage] = useState(64.52)
+  const [percentage, setPercentage] = useState('')
   const [progressType, setProgressType] = useState<ProgressTypeStyleProps>('BAD')
 
 
@@ -49,6 +49,23 @@ export function Summary() {
         return dateB.getTime() - dateA.getTime();
       });
 
+      let registeredMeals: any[] = [];
+      let onTheDiet = 0;
+      let outDiet = 0;
+      dataSortered.forEach((obj) => {
+        obj.data.forEach((meal) => {
+          if (meal.isInDiet) {
+            onTheDiet += 1;
+          } else {
+            outDiet += 1;
+          }
+          registeredMeals.push(meal.isInDiet);
+        });
+      });
+
+      setPercentage(((100 * onTheDiet) / registeredMeals.length).toFixed(2));
+
+
       setMealsData(dataSortered)
     } catch (error) {
       console.log(error)
@@ -56,16 +73,14 @@ export function Summary() {
   }
 
 
-  useEffect(() => {
-    if (percentage > 50) {
-      setProgressType('GOOD')
-    }
-  }, [percentage])
-
   useFocusEffect(
     useCallback(() => {
       // console.log("use Focus Effect executou")
       fetchMeal()
+
+      if (Number(percentage) > 50) {
+        setProgressType('GOOD')
+      }
     }, []))
 
 

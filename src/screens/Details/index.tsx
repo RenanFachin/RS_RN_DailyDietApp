@@ -1,4 +1,3 @@
-import { MealDTO, MealInfoTypes } from '@storage/meal/mealStorageDTO';
 import { BackButton, BackIcon, Container, Content, Title, DetailsMain, MealTitle, MealDescription, DateAndHourTitle, DateAndHourContent, IsOnDietContainer, IsOnDietIcon, IsOnDietText } from './styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Alert, View } from 'react-native';
@@ -29,23 +28,19 @@ export function Details() {
     navigation.goBack()
   }
 
-  async function handleDeleteMeal() {
-    try {
-      await deleteMeal(meal)
-      navigation.navigate('home')
-    } catch (error) {
-      console.log(error)
-      Alert.alert("Remover refeição", "Não foi possível deleter a refeição.")
-    }
-  }
 
-  async function handleRemoveMeal(){
+  async function handleRemoveMeal() {
     Alert.alert(
       'Remover',
       'Deseja deletar a refeição?',
       [
-        {text: 'Não', style: 'cancel'},
-        {text: 'Sim', onPress: () => handleDeleteMeal}
+        { text: 'Não', style: 'cancel' },
+        {
+          text: 'Sim', onPress: async () => {
+            await deleteMeal(meal)
+            return navigation.navigate('home')
+          }
+        }
       ]
     )
   }
