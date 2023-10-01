@@ -7,6 +7,7 @@ export declare global {
       };
       create: undefined;
       success: undefined;
+      failed: undefined;
     }
   }
 }

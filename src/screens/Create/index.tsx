@@ -20,7 +20,7 @@ export function Create() {
     navigation.goBack()
   }
 
-  function handleAddNewMeal(){
+  function handleAddNewMeal() {
     // Criando um objeto contendo todos os dados preenchidos pelo usuário
     const newMealData = {
       title: mealTitle,
@@ -30,10 +30,16 @@ export function Create() {
       isInDiet: isInDiet
     }
 
-    if(isInDiet){
+    console.log(isInDiet)
+
+    if (newMealData.isInDiet === 'Sim') {
       navigation.navigate('success')
+    } else {
+      navigation.navigate('failed')
     }
-''
+
+
+
     console.log(newMealData)
   }
 
@@ -77,11 +83,11 @@ export function Create() {
         </View>
 
         <Text>  Está dentro da dieta?</Text>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', width: '100%'}}>
           <FlatList
             data={['Sim', 'Não']}
             keyExtractor={item => item}
-            renderItem={({ item }) => (
+            renderItem={({ item }) => ( 
               <Filter
                 title={item}
                 isSelected={item === isInDiet}

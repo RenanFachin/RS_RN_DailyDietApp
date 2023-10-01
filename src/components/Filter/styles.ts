@@ -11,8 +11,9 @@ export const Container = styled(TouchableOpacity) <FilterStyleProps>`
   gap: 8px;
 
   height: 50px;
-  min-width: 153.5px;
-  max-width: 153.5px;
+
+  min-width: 161.5px;
+  max-width: 161.5px;
   border-radius: 6px;
 
   align-items: center;
