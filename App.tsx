@@ -1,6 +1,7 @@
 import { Loading } from '@components/Loading'
 import { Routes } from '@routes/index'
 
+import { Success } from '@screens/Success'
 
 // Themes
 import { ThemeProvider } from 'styled-components/native'
@@ -21,6 +22,7 @@ export default function App() {
         translucent={true}
       />
 
+      {/* {fontsLoaded ? <Routes /> : <Loading />} */}
       {fontsLoaded ? <Routes /> : <Loading />}
 
     </ThemeProvider>

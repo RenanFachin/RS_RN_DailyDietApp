@@ -5,7 +5,8 @@ export declare global {
       summaryDetails: {
         percentage: number
       };
-      create: undefined
+      create: undefined;
+      success: undefined;
     }
   }
 }

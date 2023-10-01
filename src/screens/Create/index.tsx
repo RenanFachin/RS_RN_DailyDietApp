@@ -30,6 +30,10 @@ export function Create() {
       isInDiet: isInDiet
     }
 
+    if(isInDiet){
+      navigation.navigate('success')
+    }
+''
     console.log(newMealData)
   }
 

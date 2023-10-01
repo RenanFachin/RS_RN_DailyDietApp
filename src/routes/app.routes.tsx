@@ -4,6 +4,7 @@ const NativeStack = createNativeStackNavigator()
 import { Summary } from '@screens/Summary'
 import { SummaryDetails } from '@screens/SummaryDetails'
 import { Create } from '@screens/Create'
+import { Success } from '@screens/Success'
 
 export function AppRoutes() {
   return (
@@ -21,6 +22,11 @@ export function AppRoutes() {
       <NativeStack.Screen
         name='create'
         component={Create}
+      />
+
+      <NativeStack.Screen
+        name='success'
+        component={Success}
       />
 
     </NativeStack.Navigator>
